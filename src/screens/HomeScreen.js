@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, ActivityIndicator, StyleSheet} from 'react-native';
 import {getTopStories} from '../redux/actions';
 import {connect} from 'react-redux';
 
@@ -13,8 +13,8 @@ const HomeScreen = ({stories, isLoading, getTopStories}) => {
   return (
     <View style={styles.container}>
       {isLoading ? (
-        <View>
-          <Text>Loading Stories...</Text>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#00ff00" />
         </View>
       ) : (
         <Story stories={stories} />
@@ -33,10 +33,15 @@ export default connect(mapStateToProps, {getTopStories})(HomeScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ccc',
     marginVertical: 5,
   },
   containerText: {
     fontSize: 20,
+  },
+
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
