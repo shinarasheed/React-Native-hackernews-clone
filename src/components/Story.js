@@ -15,9 +15,13 @@ export default function Story({stories}) {
             <Card.Content>
               <Title style={styles.cardContentTitle}>{story.title}</Title>
               <View style={styles.cardContent}>
-                <Paragraph> {story.score} points by </Paragraph>
-                <Paragraph>{story.by}</Paragraph>
-                <Paragraph>{format(new Date(story.time))}</Paragraph>
+                <Paragraph style={styles.paraStyle}>
+                  {story.score} points by{' '}
+                </Paragraph>
+                <Paragraph style={styles.paraStyle}>{story.by}</Paragraph>
+                <Paragraph style={styles.paraStyle}>
+                  {format(new Date(story.time))}
+                </Paragraph>
               </View>
             </Card.Content>
           </Card>
@@ -38,11 +42,15 @@ const styles = StyleSheet.create({
   },
 
   cardContentTitle: {
-    fontSize: 11,
+    fontSize: 14,
     lineHeight: 20,
   },
 
   cardContentText: {
     marginRight: 5,
+  },
+
+  paraStyle: {
+    fontSize: 14,
   },
 });

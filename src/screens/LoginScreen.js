@@ -1,9 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {
-  CustomButton,
-  UserNameButton,
-  PasswordButton,
-} from '../components/shared';
+import {UserNameInput, PasswordInput} from '../components/shared';
+import {Button} from 'react-native-paper';
 
 import {Alert, StyleSheet, View} from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
@@ -32,7 +29,7 @@ export default function LoginScreen({navigation}) {
     });
   }, []);
 
-  const registerUser = () => {
+  const handleLogin = () => {
     if (!username) {
       Alert.alert('Please fill username');
       return;
@@ -45,22 +42,12 @@ export default function LoginScreen({navigation}) {
 
     db.transaction(function (tx) {
       tx.executeSql(
-        'INSERT INTO table_user (user_name, password) VALUES (?,?)',
+        'SELECT user_name from table_user WHERE user_name=? AND password=?',
         [username, password],
         (tx, results) => {
           if (results.rowsAffected > 0) {
-            Alert.alert(
-              'Success',
-              'You are Registered Successfully',
-              [
-                {
-                  text: 'Ok',
-                  onPress: () => navigation.navigate('HomeScreen'),
-                },
-              ],
-              {cancelable: false},
-            );
-          } else alert('Registration Failed');
+            navigation.navigate('HomeScreen');
+          } else alert('Login Failed');
         },
       );
     });
@@ -68,17 +55,23 @@ export default function LoginScreen({navigation}) {
   return (
     <View style={styles.container}>
       <View>
-        <UserNameButton
+        <UserNameInput
           placeholder="username"
           value={username}
           onChangeText={text => setUsername(text)}
         />
-        <PasswordButton
+        <PasswordInput
           placeholder="password"
           value={password}
           onChangeText={text => setPassword(text)}
         />
-        <CustomButton onPress={registerUser} title="Login" />
+        <Button
+          dark={true}
+          accessibilityLabel="button"
+          mode="contained"
+          onPress={handleLogin}>
+          Login
+        </Button>
       </View>
     </View>
   );
@@ -88,7 +81,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#000',
+    paddingHorizontal: 20,
   },
 });

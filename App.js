@@ -1,37 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {StatusBar} from 'react-native';
 import {Provider} from 'react-redux';
+import {Provider as PaperProvider} from 'react-native-paper';
 import store from './src/redux/store';
 
-import HomeScreen from './src/screens/HomeScreen';
-import LoginScreen from './src/screens/LoginScreen';
-import RegisterScreen from './src/screens/RegisterScreen';
-import AboutScreen from './src/screens/AboutScreen';
-
-const Stack = createStackNavigator();
+import DrawerNavigator from './src/navigation/DrawerNavigation';
+import COLORS from './src/constants/colors';
+import SplashScreen from 'react-native-splash-screen';
 
 const App = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="HomeScreen" component={HomeScreen}></Stack.Screen>
-
-          <Stack.Screen
-            name="RegisterScreen"
-            component={RegisterScreen}></Stack.Screen>
-
-          <Stack.Screen
-            name="LoginScreen"
-            component={LoginScreen}
-            options={{headerShown: false}}></Stack.Screen>
-
-          <Stack.Screen
-            name="AboutScreen"
-            component={AboutScreen}></Stack.Screen>
-        </Stack.Navigator>
-      </NavigationContainer>
+      <PaperProvider>
+        <NavigationContainer>
+          <StatusBar barStyle="dark-content" backgroundColor={COLORS.primary} />
+          <DrawerNavigator />
+        </NavigationContainer>
+      </PaperProvider>
     </Provider>
   );
 };

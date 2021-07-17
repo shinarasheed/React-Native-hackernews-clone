@@ -1,30 +1,28 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, Text, TextInput} from 'react-native';
+import {StyleSheet} from 'react-native';
 
-export const CustomButton = ({pressButton, title}) => {
-  return (
-    <TouchableOpacity style={styles.loginButton} onPress={pressButton}>
-      <Text style={styles.loginButtonText}>{title}</Text>
-    </TouchableOpacity>
-  );
-};
+import {TextInput} from 'react-native-paper';
 
-export const UserNameButton = ({value, onChangeText, placeholder}) => {
+import COLORS from '../constants/colors';
+
+export const UserNameInput = ({value, onChangeText, placeholder}) => {
   return (
     <TextInput
-      style={styles.loginInput}
-      placeholder={placeholder}
+      style={styles.textInput}
+      selectionColor={COLORS.primary}
+      outlineColor={COLORS.primary}
+      label={placeholder}
       value={value}
       onChangeText={onChangeText}
     />
   );
 };
 
-export const PasswordButton = ({value, onChangeText, placeholder}) => {
+export const PasswordInput = ({value, onChangeText, placeholder}) => {
   return (
     <TextInput
-      style={styles.loginInput}
-      placeholder={placeholder}
+      style={styles.textInput}
+      label={placeholder}
       secureTextEntry={true}
       value={value}
       onChangeText={onChangeText}
@@ -47,14 +45,8 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
 
-  loginInput: {
-    width: 350,
-    borderWidth: 1,
-    borderColor: '#555',
-    borderRadius: 10,
-    backgroundColor: '#fff',
-    paddingLeft: 10,
-    fontSize: 16,
+  textInput: {
     marginBottom: 10,
+    backgroundColor: 'transparent',
   },
 });
