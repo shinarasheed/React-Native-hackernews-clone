@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
 
   cardContentTitle: {
-    fontSize: 14,
+    fontSize: 15,
     lineHeight: 20,
   },
 
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
 
   paraStyle: {
-    fontSize: 12,
+    fontSize: 13,
     marginRight: 3,
   },
 });
