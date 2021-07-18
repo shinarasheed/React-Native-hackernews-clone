@@ -1,7 +1,9 @@
 import React from 'react';
 import {format} from 'timeago.js';
-import {Avatar, Button, Card, Title, Paragraph} from 'react-native-paper';
-import {StyleSheet, View, Text, TouchableOpacity, FlatList} from 'react-native';
+import TimeAgo from 'react-native-timeago';
+import moment from 'moment';
+import {Card, Title, Paragraph} from 'react-native-paper';
+import {StyleSheet, View, TouchableOpacity, FlatList} from 'react-native';
 
 export default function Story({stories}) {
   return (
@@ -20,7 +22,11 @@ export default function Story({stories}) {
                 </Paragraph>
                 <Paragraph style={styles.paraStyle}>{story.by}</Paragraph>
                 <Paragraph style={styles.paraStyle}>
-                  {format(new Date(story.time))}
+                  {moment.unix(story.time).fromNow()}
+                </Paragraph>
+
+                <Paragraph style={styles.paraStyle}>
+                  {story.descendants}comments
                 </Paragraph>
               </View>
             </Card.Content>
@@ -51,6 +57,7 @@ const styles = StyleSheet.create({
   },
 
   paraStyle: {
-    fontSize: 14,
+    fontSize: 12,
+    marginRight: 3,
   },
 });

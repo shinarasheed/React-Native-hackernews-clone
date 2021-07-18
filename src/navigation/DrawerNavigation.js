@@ -2,8 +2,8 @@ import React from 'react';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import {AboutStackNavigator} from './StackNavigation';
-import TabNavigator from './TabNavigation';
+import HomeTabs from '../navigation/TabNavigation';
+import AboutScreen from '../screens/AboutScreen';
 import COLORS from '../constants/colors';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -17,7 +17,7 @@ const DrawerNavigator = () => {
       hideStatusBar={true}
       overlayColor="transparent"
       drawerStyle={{
-        backgroundColor: COLORS.secondary,
+        backgroundColor: COLORS.white,
       }}
       screenOptions={{
         headerShown: true,
@@ -35,7 +35,7 @@ const DrawerNavigator = () => {
       }}>
       <Drawer.Screen
         name="HomeScreen"
-        component={TabNavigator}
+        component={HomeTabs}
         options={{
           title: 'HN',
           drawerIcon: ({focused}) => {
@@ -49,7 +49,7 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name="AboutScreen"
-        component={AboutStackNavigator}
+        component={AboutScreen}
         options={{
           title: 'About Me',
           drawerIcon: ({focused}) => {

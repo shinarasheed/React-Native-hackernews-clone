@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {UserNameInput, PasswordInput} from '../components/shared';
 import {Button} from 'react-native-paper';
 
@@ -10,24 +10,6 @@ var db = openDatabase({name: 'UserDatabase.db'});
 export default function LoginScreen({navigation}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
-  useEffect(() => {
-    db.transaction(function (txn) {
-      txn.executeSql(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name='table_user'",
-        [],
-        function (tx, res) {
-          if (res.rows.length == 0) {
-            txn.executeSql('DROP TABLE IF EXISTS table_user', []);
-            txn.executeSql(
-              'CREATE TABLE IF NOT EXISTS table_user(user_id INTEGER PRIMARY KEY AUTOINCREMENT, user_name VARCHAR(20), password VARCHAR(255))',
-              [],
-            );
-          }
-        },
-      );
-    });
-  }, []);
 
   const handleLogin = () => {
     if (!username) {
@@ -42,12 +24,10 @@ export default function LoginScreen({navigation}) {
 
     db.transaction(function (tx) {
       tx.executeSql(
-        'SELECT user_name from table_user WHERE user_name=? AND password=?',
+        'SELECT * FROM table_user WHERE user_name=? AND password=?',
         [username, password],
         (tx, results) => {
-          if (results.rowsAffected > 0) {
-            navigation.navigate('HomeScreen');
-          } else alert('Login Failed');
+          navigation.navigate('HomeScreen');
         },
       );
     });

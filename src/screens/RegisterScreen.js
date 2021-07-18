@@ -51,6 +51,7 @@ export default function RegisterScreen({navigation}) {
         'INSERT INTO table_user (user_name, password) VALUES (?, ?)',
         [username, password],
         (tx, results) => {
+          console.log(results);
           if (results.rowsAffected > 0) {
             Alert.alert(
               'Success',

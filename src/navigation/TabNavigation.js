@@ -3,7 +3,8 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import Fontawesome5 from 'react-native-vector-icons/FontAwesome5';
 import COLORS from '../constants/colors';
 
-import {MainStackNavigator, AboutStackNavigator} from './StackNavigation';
+import HomeScreen from '../screens/HomeScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -34,8 +35,8 @@ const BottomTabNavigator = () => {
       activeColor={COLORS.primary}
       inactiveColor={COLORS.dark}
       labeled={false}>
-      <Tab.Screen name="HomeScreen" component={MainStackNavigator} />
-      <Tab.Screen name="AboutScreen" component={AboutStackNavigator} />
+      <Tab.Screen name="HomeScreen" component={HomeScreen} />
+      <Tab.Screen name="AboutScreen" component={AboutScreen} />
     </Tab.Navigator>
   );
 };
